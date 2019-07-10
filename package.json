@@ -23,7 +23,8 @@
   "dependencies": {
     "is-my-json-valid": "^2.19.0",
     "json-schema-deref-sync": "^0.7.0",
-    "yamljs": "^0.3.0"
+    "yamljs": "^0.3.0",
+    "snyk": "^1.192.4"
   },
   "devDependencies": {
     "@types/mocha": "^5.2.5",
@@ -59,6 +60,9 @@
     "cover:browser": "npm run cover && istanbul report html && open coverage/coverage-remapped/index.html",
     "cover:istanbul": "rm -rf ./coverage && istanbul cover _mocha -- --require expectations $(find build -name '*.spec.js')",
     "cover:remap": "remap-istanbul -i coverage/coverage.raw.json -o coverage/coverage-remapped.json && remap-istanbul -i coverage/coverage.raw.json -o coverage/coverage-remapped.lcov -t lcovonly && remap-istanbul -i coverage/coverage.raw.json -o coverage/coverage-remapped -t html",
-    "coveralls": "npm run-script cover && coveralls < coverage/coverage-remapped.lcov"
-  }
+    "coveralls": "npm run-script cover && coveralls < coverage/coverage-remapped.lcov",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
+  },
+  "snyk": true
 }
