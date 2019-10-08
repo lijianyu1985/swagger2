@@ -1,17 +1,18 @@
 "use strict";
-// validate.js
+// validate.ts
 Object.defineProperty(exports, "__esModule", { value: true });
+const Undefined = (() => { })();
 function isEmpty(value) {
-    return value === undefined || value === '' || Object.keys(value).length === 0;
+    return typeof value === 'undefined' || value === '' || Object.keys(value).length === 0;
 }
 function validate(value, schema) {
     // if no schema, treat as an error
-    if (schema === undefined) {
+    if (typeof schema === 'undefined') {
         return {
             actual: value,
             expected: {
-                schema: undefined
-            },
+                schema
+            }
         };
     }
     const valid = schema.validator(value);
@@ -24,34 +25,35 @@ function validate(value, schema) {
             schema: schema.schema,
             type: schema.type,
             format: schema.format
-        },
+        }
     };
     const errorDetail = schema.validator.error;
     if (errorDetail) {
         error.error = errorDetail;
     }
-    if (error.expected.schema === undefined) {
+    if (typeof error.expected.schema === 'undefined') {
         delete error.expected.schema;
     }
-    if (error.expected.type === undefined) {
+    if (typeof error.expected.type === 'undefined') {
         delete error.expected.type;
     }
-    if (error.expected.format === undefined) {
+    if (typeof error.expected.format === 'undefined') {
         delete error.expected.format;
     }
     if (Object.keys(error.expected).length === 0) {
         // nothing is expected, so set to undefined
-        error.expected = undefined;
+        error.expected = Undefined;
     }
     return error;
 }
+// eslint-disable-next-line sonarjs/cognitive-complexity
 function request(compiledPath, method, query, body, headers, pathParameters) {
-    if (compiledPath === undefined) {
+    if (typeof compiledPath === 'undefined') {
         return;
     }
     // get operation object for path and method
     const operation = compiledPath.path[method.toLowerCase()];
-    if (operation === undefined) {
+    if (typeof operation === 'undefined') {
         // operation not defined, return 405 (method not allowed)
         return;
     }
@@ -61,12 +63,12 @@ function request(compiledPath, method, query, body, headers, pathParameters) {
     // check all the parameters match swagger schema
     if (parameters.length === 0) {
         const error = validate(body, { validator: isEmpty });
-        if (error !== undefined) {
+        if (typeof error !== 'undefined') {
             error.where = 'body';
             validationErrors.push(error);
         }
-        if (query !== undefined && Object.keys(query).length > 0) {
-            Object.keys(query).forEach((key) => {
+        if (typeof query !== 'undefined' && Object.keys(query).length > 0) {
+            Object.keys(query).forEach(key => {
                 validationErrors.push({
                     where: 'query',
                     name: key,
@@ -88,9 +90,10 @@ function request(compiledPath, method, query, body, headers, pathParameters) {
                     value = pathParameters[parameter.name];
                 }
                 else {
+                    // eslint-disable-next-line require-unicode-regexp,no-useless-escape
                     const actual = (compiledPath.requestPath || '').match(/[^\/]+/g);
-                    const valueIndex = compiledPath.expected.indexOf('{' + parameter.name + '}');
-                    value = actual ? actual[valueIndex] : undefined;
+                    const valueIndex = compiledPath.expected.indexOf(`{${parameter.name}}`);
+                    value = actual ? actual[valueIndex] : Undefined;
                 }
                 break;
             case 'body':
@@ -108,15 +111,15 @@ function request(compiledPath, method, query, body, headers, pathParameters) {
             // do nothing
         }
         const error = validate(value, parameter);
-        if (error !== undefined) {
+        if (typeof error !== 'undefined') {
             error.where = parameter.in;
             validationErrors.push(error);
         }
     });
     // ensure body is undefined if no body schema is defined
-    if (!bodyDefined && body !== undefined) {
+    if (!bodyDefined && typeof body !== 'undefined') {
         const error = validate(body, { validator: isEmpty });
-        if (error !== undefined) {
+        if (typeof error !== 'undefined') {
             error.where = 'body';
             validationErrors.push(error);
         }
@@ -125,7 +128,7 @@ function request(compiledPath, method, query, body, headers, pathParameters) {
 }
 exports.request = request;
 function response(compiledPath, method, status, body) {
-    if (compiledPath === undefined) {
+    if (typeof compiledPath === 'undefined') {
         return {
             actual: 'UNDEFINED_PATH',
             expected: 'PATH'
@@ -134,7 +137,7 @@ function response(compiledPath, method, status, body) {
     const operation = compiledPath.path[method.toLowerCase()];
     // check the response matches the swagger schema
     let schema = operation.responses[status];
-    if (schema === undefined) {
+    if (typeof schema === 'undefined') {
         schema = operation.responses.default;
     }
     return validate(body, schema);

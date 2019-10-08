@@ -1,5 +1,8 @@
 "use strict";
-// compiler.js
+// compiler.ts
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * Convert a swagger document into a compiled form so that it can be used by validator
@@ -27,25 +30,27 @@ Object.defineProperty(exports, "__esModule", { value: true });
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  */
-const jsonValidator = require("is-my-json-valid");
-const deref = require("json-schema-deref-sync");
+/* eslint-disable @typescript-eslint/no-explicit-any */
+const is_my_json_valid_1 = __importDefault(require("is-my-json-valid"));
+const json_schema_deref_sync_1 = __importDefault(require("json-schema-deref-sync"));
 /*
  * We need special handling for query validation, since they're all strings.
  * e.g. we must treat "5" as a valid number
  */
 function stringValidator(schema) {
-    const validator = jsonValidator(schema);
-    return (value) => {
+    const validator = is_my_json_valid_1.default(schema);
+    return (inputValue) => {
         // if an optional field is not provided, we're all good other not so much
-        if (value === undefined) {
+        if (typeof inputValue === 'undefined') {
             return !schema.required;
         }
+        let value = inputValue;
         switch (schema.type) {
             case 'number':
             case 'integer':
                 if (!isNaN(value)) {
                     // if the value is a number, make sure it's a number
-                    value = +value;
+                    value = Number(value);
                 }
                 break;
             case 'boolean':
@@ -84,11 +89,9 @@ function stringValidator(schema) {
                         value = value.map((num) => {
                             if (!isNaN(num)) {
                                 // if the value is a number, make sure it's a number
-                                return +num;
+                                return Number(num);
                             }
-                            else {
-                                return num;
-                            }
+                            return num;
                         });
                         break;
                     case 'boolean':
@@ -99,9 +102,7 @@ function stringValidator(schema) {
                             else if (bool === 'false') {
                                 return false;
                             }
-                            else {
-                                return bool;
-                            }
+                            return bool;
                         });
                         break;
                     default:
@@ -116,11 +117,13 @@ function stringValidator(schema) {
 }
 function compile(document) {
     // get the de-referenced version of the swagger document
-    const swagger = deref(document);
+    const swagger = json_schema_deref_sync_1.default(document);
     // add a validator for every parameter in swagger document
-    Object.keys(swagger.paths).forEach((pathName) => {
+    Object.keys(swagger.paths).forEach(pathName => {
         const path = swagger.paths[pathName];
-        Object.keys(path).filter((name) => name !== 'parameters').forEach((operationName) => {
+        Object.keys(path)
+            .filter(name => name !== 'parameters')
+            .forEach(operationName => {
             const operation = path[operationName];
             const parameters = {};
             const resolveParameter = (parameter) => {
@@ -131,7 +134,7 @@ function compile(document) {
             // merge in or replace parameters from operation level
             (operation.parameters || []).forEach(resolveParameter);
             // create array of fully resolved parameters for operation
-            operation.resolvedParameters = Object.keys(parameters).map((key) => parameters[key]);
+            operation.resolvedParameters = Object.keys(parameters).map(key => parameters[key]);
             // create parameter validators
             operation.resolvedParameters.forEach((parameter) => {
                 const schema = parameter.schema || parameter;
@@ -139,39 +142,44 @@ function compile(document) {
                     parameter.validator = stringValidator(schema);
                 }
                 else {
-                    parameter.validator = jsonValidator(schema);
+                    parameter.validator = is_my_json_valid_1.default(schema);
                 }
             });
-            Object.keys(operation.responses).forEach((statusCode) => {
+            Object.keys(operation.responses).forEach(statusCode => {
                 const response = operation.responses[statusCode];
                 if (response.schema) {
-                    response.validator = jsonValidator(response.schema);
+                    response.validator = is_my_json_valid_1.default(response.schema);
                 }
                 else {
                     // no schema, so ensure there is no response
                     // tslint:disable-next-line:no-null-keyword
-                    response.validator = (body) => body === undefined || body === null || body === '';
+                    response.validator = (body) => typeof body === 'undefined' || body === null || body === '';
                 }
             });
         });
     });
     const basePath = swagger.basePath || '';
-    const matcher = Object.keys(swagger.paths)
-        .map((name) => {
+    const matcher = Object.keys(swagger.paths).map(name => {
         return {
             name,
             path: swagger.paths[name],
-            regex: new RegExp('^' + basePath.replace(/\/*$/, '') + name.replace(/\{[^}]*}/g, '[^/]+') + '/?$'),
-            expected: (name.match(/[^\/]+/g) || []).map((s) => s.toString())
+            // eslint-disable-next-line require-unicode-regexp
+            regex: new RegExp(`^${basePath.replace(/\/*$/, '')}${name.replace(/\{[^}]*}/g, '[^/]+')}/?$`),
+            // eslint-disable-next-line no-useless-escape,require-unicode-regexp,id-length
+            expected: (name.match(/[^\/]+/g) || []).map(s => s.toString())
         };
     });
     return (path) => {
         // get a list of matching paths, there should be only one
-        const matches = matcher.filter((match) => !!path.match(match.regex));
+        // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
+        const matches = matcher.filter(match => Boolean(path.match(match.regex)));
         if (matches.length === 0) {
             return;
         }
-        return Object.assign({ requestPath: path.substring((basePath || '').length) }, matches[0]);
+        return {
+            requestPath: path.substring((basePath || '').length),
+            ...matches[0]
+        };
     };
 }
 exports.compile = compile;

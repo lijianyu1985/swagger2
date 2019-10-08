@@ -1,5 +1,12 @@
 "use strict";
 // swagger.ts
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * swagger2
@@ -30,9 +37,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  */
-const compiler = require("./compiler");
-const document = require("./document");
-const validate = require("./validate");
+const compiler = __importStar(require("./compiler"));
+const document = __importStar(require("./document"));
+const validate = __importStar(require("./validate"));
+// eslint-disable-next-line no-sync
 exports.loadDocumentSync = document.loadDocumentSync;
 exports.validateDocument = document.validateDocument;
 exports.validateRequest = validate.request;

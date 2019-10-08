@@ -1,5 +1,15 @@
 "use strict";
 // document.ts
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 /*
  * Loading, parsing and validating Swagger v2 documents
@@ -27,11 +37,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
  */
-const jsonValidator = require("is-my-json-valid");
-const YAML = require("yamljs");
-const schema = require("./schema.json");
+const is_my_json_valid_1 = __importDefault(require("is-my-json-valid"));
+const YAML = __importStar(require("yamljs"));
+const schema = __importStar(require("./schema.json"));
 // build a swagger validator from the official v2.0 schema
-const schemaValidator = jsonValidator(schema);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const schemaValidator = is_my_json_valid_1.default(schema);
 /*
  * Validate a swagger document against the 2.0 schema, returning a typed Document object.
  */
