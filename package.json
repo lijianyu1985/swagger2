@@ -24,7 +24,8 @@
   "dependencies": {
     "is-my-json-valid": "^2.20.0",
     "json-schema-deref-sync": "^0.10.1",
-    "yamljs": "^0.3.0"
+    "yamljs": "^0.3.0",
+    "snyk": "^1.319.0"
   },
   "devDependencies": {
     "@checkdigit/eslint-config": "^3.0.1",
@@ -63,7 +64,9 @@
     "prettier:fix": "prettier --write src/**/*.ts",
     "test": "nyc mocha --require ts-node/register --require source-map-support/register --full-trace \"src/**/*.spec.ts\" && npm run lint && npm run prettier",
     "cover:browser": "nyc report --reporter=html && open coverage/index.html",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "nyc": {
     "include": [
@@ -78,5 +81,6 @@
     "sourceMap": true,
     "produceSourceMap": true,
     "instrument": true
-  }
+  },
+  "snyk": true
 }
