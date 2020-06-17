@@ -80,7 +80,7 @@ describe('swagger2', () => {
         assert.strictEqual(undefined, swagger.validateRequest(undefined, 'delete', {}, {}));
         assert.deepStrictEqual(swagger.validateResponse(undefined, 'delete', 201), {
           actual: 'UNDEFINED_PATH',
-          expected: 'PATH'
+          expected: 'PATH',
         });
       });
 
@@ -94,8 +94,8 @@ describe('swagger2', () => {
             swagger.validateRequest(compiledPath, 'put', undefined, [
               {
                 id: 123,
-                name: 'name'
-              }
+                name: 'name',
+              },
             ]),
             []
           );
@@ -106,8 +106,8 @@ describe('swagger2', () => {
             swagger.validateRequest(compiledPath, 'put', undefined, [
               {
                 id: 123,
-                name: ''
-              }
+                name: '',
+              },
             ]),
             [
               {
@@ -120,14 +120,14 @@ describe('swagger2', () => {
                       properties: {
                         id: { type: 'integer', format: 'int64' },
                         name: { type: 'string', minLength: 1 },
-                        tag: { type: 'string' }
-                      }
-                    }
-                  }
+                        tag: { type: 'string' },
+                      },
+                    },
+                  },
                 },
                 error: 'data.0.name has less length than allowed',
-                where: 'body'
-              }
+                where: 'body',
+              },
             ]
           );
         });
@@ -136,14 +136,14 @@ describe('swagger2', () => {
           it('body must be empty', () => {
             assert.deepStrictEqual(
               swagger.validateRequest(compiledPath, 'post', undefined, {
-                x: 'hello'
+                x: 'hello',
               }),
               [
                 {
                   actual: { x: 'hello' },
                   expected: undefined,
-                  where: 'body'
-                }
+                  where: 'body',
+                },
               ]
             );
           });
@@ -154,8 +154,8 @@ describe('swagger2', () => {
                 where: 'query',
                 name: 'x',
                 actual: 'y',
-                expected: {}
-              }
+                expected: {},
+              },
             ]);
           });
 
@@ -166,7 +166,7 @@ describe('swagger2', () => {
           it('fail if response invalid', () => {
             assert.deepStrictEqual(swagger.validateResponse(compiledPath, 'post', 201, {}), {
               actual: {},
-              expected: undefined
+              expected: undefined,
             });
           });
 
@@ -185,8 +185,8 @@ describe('swagger2', () => {
                 {
                   actual: 'hello',
                   expected: { type: 'integer', format: 'int32' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ],
               swagger.validateRequest(compiledPath, 'get', { limit: 'hello' })
             );
@@ -196,8 +196,8 @@ describe('swagger2', () => {
                 {
                   actual: 23.3,
                   expected: { type: 'integer', format: 'int32' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ],
               swagger.validateRequest(compiledPath, 'get', { limit: 23.3 })
             );
@@ -207,11 +207,11 @@ describe('swagger2', () => {
                 {
                   actual: 'hello',
                   expected: { type: 'number' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ],
               swagger.validateRequest(compiledPath, 'get', {
-                numberLimit: 'hello'
+                numberLimit: 'hello',
               })
             );
 
@@ -219,14 +219,14 @@ describe('swagger2', () => {
             assert.deepStrictEqual(swagger.validateRequest(compiledPath, 'get', { numberLimit: 5 }), []);
             assert.deepStrictEqual(
               swagger.validateRequest(compiledPath, 'get', {
-                numberLimit: 5.5
+                numberLimit: 5.5,
               }),
               []
             );
             assert.deepStrictEqual(swagger.validateRequest(compiledPath, 'get', { limit: '5' }), []);
             assert.deepStrictEqual(
               swagger.validateRequest(compiledPath, 'get', {
-                numberLimit: '5'
+                numberLimit: '5',
               }),
               []
             );
@@ -238,11 +238,11 @@ describe('swagger2', () => {
                 {
                   actual: 'hello',
                   expected: { type: 'boolean' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ],
               swagger.validateRequest(compiledPath, 'get', {
-                booleanLimit: 'hello'
+                booleanLimit: 'hello',
               })
             );
 
@@ -251,35 +251,35 @@ describe('swagger2', () => {
                 {
                   actual: '0',
                   expected: { type: 'boolean' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ],
               swagger.validateRequest(compiledPath, 'get', {
-                booleanLimit: '0'
+                booleanLimit: '0',
               })
             );
 
             assert.deepStrictEqual(
               swagger.validateRequest(compiledPath, 'get', {
-                booleanLimit: true
+                booleanLimit: true,
               }),
               []
             );
             assert.deepStrictEqual(
               swagger.validateRequest(compiledPath, 'get', {
-                booleanLimit: false
+                booleanLimit: false,
               }),
               []
             );
             assert.deepStrictEqual(
               swagger.validateRequest(compiledPath, 'get', {
-                booleanLimit: 'true'
+                booleanLimit: 'true',
               }),
               []
             );
             assert.deepStrictEqual(
               swagger.validateRequest(compiledPath, 'get', {
-                booleanLimit: 'false'
+                booleanLimit: 'false',
               }),
               []
             );
@@ -291,11 +291,11 @@ describe('swagger2', () => {
                 {
                   actual: { x: 'hello' },
                   expected: undefined,
-                  where: 'body'
-                }
+                  where: 'body',
+                },
               ],
               swagger.validateRequest(compiledPath, 'get', undefined, {
-                x: 'hello'
+                x: 'hello',
               })
             );
           });
@@ -306,7 +306,7 @@ describe('swagger2', () => {
           it('invalid method response', () =>
             assert.deepStrictEqual(
               swagger.validateResponse(compiledPath, 'get', 201, {
-                code: 'hello'
+                code: 'hello',
               }),
               {
                 actual: { code: 'hello' },
@@ -316,20 +316,20 @@ describe('swagger2', () => {
                     properties: {
                       code: {
                         type: 'integer',
-                        format: 'int32'
+                        format: 'int32',
                       },
-                      message: { type: 'string' }
-                    }
-                  }
+                      message: { type: 'string' },
+                    },
+                  },
                 },
-                error: 'data.message is required'
+                error: 'data.message is required',
               }
             ));
 
           it('invalid object response', () =>
             assert.deepStrictEqual(
               swagger.validateResponse(compiledPath, 'get', 200, {
-                bad: 'object'
+                bad: 'object',
               }),
               {
                 actual: { bad: 'object' },
@@ -341,12 +341,12 @@ describe('swagger2', () => {
                       properties: {
                         id: { type: 'integer', format: 'int64' },
                         name: { type: 'string', minLength: 1 },
-                        tag: { type: 'string' }
-                      }
-                    }
-                  }
+                        tag: { type: 'string' },
+                      },
+                    },
+                  },
                 },
-                error: 'data is the wrong type'
+                error: 'data is the wrong type',
               }
             ));
 
@@ -361,12 +361,12 @@ describe('swagger2', () => {
                     properties: {
                       id: { type: 'integer', format: 'int64' },
                       name: { type: 'string', minLength: 1 },
-                      tag: { type: 'string' }
-                    }
-                  }
-                }
+                      tag: { type: 'string' },
+                    },
+                  },
+                },
               },
-              error: 'data.0.id is required\ndata.0.name is required'
+              error: 'data.0.id is required\ndata.0.name is required',
             }));
 
           it('invalid pet object response', () =>
@@ -374,8 +374,8 @@ describe('swagger2', () => {
               swagger.validateResponse(compiledPath, 'get', 200, [
                 {
                   id: 'abc',
-                  name: 'hello'
-                }
+                  name: 'hello',
+                },
               ]),
               {
                 actual: [{ id: 'abc', name: 'hello' }],
@@ -387,15 +387,15 @@ describe('swagger2', () => {
                       properties: {
                         id: {
                           type: 'integer',
-                          format: 'int64'
+                          format: 'int64',
                         },
                         name: { type: 'string', minLength: 1 },
-                        tag: { type: 'string' }
-                      }
-                    }
-                  }
+                        tag: { type: 'string' },
+                      },
+                    },
+                  },
                 },
-                error: 'data.0.id is the wrong type'
+                error: 'data.0.id is the wrong type',
               }
             ));
 
@@ -403,7 +403,7 @@ describe('swagger2', () => {
             assert.deepStrictEqual(
               swagger.validateResponse(compiledPath, 'get', 400, {
                 code: 32,
-                message: 'message'
+                message: 'message',
               }),
               undefined
             ));
@@ -415,8 +415,8 @@ describe('swagger2', () => {
               swagger.validateResponse(compiledPath, 'get', 200, [
                 {
                   id: 3,
-                  name: 'hello'
-                }
+                  name: 'hello',
+                },
               ]),
               undefined
             ));
@@ -445,8 +445,8 @@ describe('swagger2', () => {
                 {
                   actual: 'NOT NUMBER',
                   expected: { type: 'number' },
-                  where: 'header'
-                }
+                  where: 'header',
+                },
               ]
             );
           });
@@ -457,8 +457,8 @@ describe('swagger2', () => {
                 {
                   actual: undefined,
                   expected: { type: 'string' },
-                  where: 'header'
-                }
+                  where: 'header',
+                },
               ]
             );
           });
@@ -466,15 +466,15 @@ describe('swagger2', () => {
             assert.deepStrictEqual(
               [],
               swagger.validateRequest(compiled('/v1/pets/123'), 'get', { String: 'hello' }, undefined, {
-                'If-Match': 'XYZ'
+                'If-Match': 'XYZ',
               })
             );
             assert.deepStrictEqual(
               swagger.validateResponse(compiled('/v1/pets/123'), 'get', 200, [
                 {
                   id: 3,
-                  name: 'hello'
-                }
+                  name: 'hello',
+                },
               ]),
               undefined
             );
@@ -518,8 +518,8 @@ describe('swagger2', () => {
                 {
                   actual: undefined,
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ],
               swagger.validateRequest(
                 compiled('/v1/pets/abc'),
@@ -579,8 +579,8 @@ describe('swagger2', () => {
                 {
                   actual: 'hello',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
             assert.deepStrictEqual(
@@ -596,8 +596,8 @@ describe('swagger2', () => {
                 {
                   actual: '123,hello',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
           });
@@ -649,8 +649,8 @@ describe('swagger2', () => {
                 {
                   actual: 'hello',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
             assert.deepStrictEqual(
@@ -666,8 +666,8 @@ describe('swagger2', () => {
                 {
                   actual: 'true|hello',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
           });
@@ -708,8 +708,8 @@ describe('swagger2', () => {
                 {
                   actual: 'false abc',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
             assert.deepStrictEqual(
@@ -725,8 +725,8 @@ describe('swagger2', () => {
                 {
                   actual: 'false,true',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
             assert.deepStrictEqual(
@@ -742,8 +742,8 @@ describe('swagger2', () => {
                 {
                   actual: 'false\ttrue',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
             assert.deepStrictEqual(
@@ -759,8 +759,8 @@ describe('swagger2', () => {
                 {
                   actual: 'false|true',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
           });
@@ -801,8 +801,8 @@ describe('swagger2', () => {
                 {
                   actual: 'false\tabc',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
             assert.deepStrictEqual(
@@ -818,8 +818,8 @@ describe('swagger2', () => {
                 {
                   actual: 'false,true',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
             assert.deepStrictEqual(
@@ -835,8 +835,8 @@ describe('swagger2', () => {
                 {
                   actual: 'false true',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
             assert.deepStrictEqual(
@@ -852,8 +852,8 @@ describe('swagger2', () => {
                 {
                   actual: 'false|true',
                   expected: { type: 'array' },
-                  where: 'query'
-                }
+                  where: 'query',
+                },
               ]
             );
           });
@@ -882,14 +882,14 @@ describe('swagger2', () => {
         // not ok
         assert.deepStrictEqual(
           swagger.validateRequest(compiledPath, 'get', {
-            Number: 1
+            Number: 1,
           }),
           [
             {
               actual: undefined,
               expected: { type: 'string' },
-              where: 'query'
-            }
+              where: 'query',
+            },
           ]
         );
 
@@ -897,7 +897,7 @@ describe('swagger2', () => {
         assert.deepStrictEqual(
           swagger.validateRequest(compiledPath, 'get', {
             String: 'hello',
-            Number: 1
+            Number: 1,
           }),
           []
         );
@@ -905,7 +905,7 @@ describe('swagger2', () => {
         // not ok
         assert.deepStrictEqual(
           swagger.validateRequest(compiledPath, 'put', {
-            String: 'abc'
+            String: 'abc',
           }),
           [{ actual: 'abc', expected: { type: 'number' }, where: 'query' }]
         );
@@ -920,7 +920,7 @@ describe('swagger2', () => {
             'patch',
             {
               String: 'hello',
-              Number: 1
+              Number: 1,
             },
             { tag: 'dog' }
           ),
@@ -936,7 +936,7 @@ describe('swagger2', () => {
             undefined,
             undefined,
             {
-              num: '123'
+              num: '123',
             }
           ),
           []
@@ -951,7 +951,7 @@ describe('swagger2', () => {
             undefined,
             undefined,
             {
-              num: 123
+              num: 123,
             }
           ),
           []
@@ -966,7 +966,7 @@ describe('swagger2', () => {
             undefined,
             undefined,
             {
-              num: 'abc'
+              num: 'abc',
             }
           ),
           [{ actual: 'abc', expected: { type: 'number' }, where: 'path' }]
@@ -981,7 +981,7 @@ describe('swagger2', () => {
             undefined,
             undefined,
             {
-              bool: 'true'
+              bool: 'true',
             }
           ),
           []
@@ -996,7 +996,7 @@ describe('swagger2', () => {
             undefined,
             undefined,
             {
-              bool: false
+              bool: false,
             }
           ),
           []
@@ -1011,7 +1011,7 @@ describe('swagger2', () => {
             undefined,
             undefined,
             {
-              bool: 'abc'
+              bool: 'abc',
             }
           ),
           [{ actual: 'abc', expected: { type: 'boolean' }, where: 'path' }]
@@ -1026,7 +1026,7 @@ describe('swagger2', () => {
             undefined,
             undefined,
             {
-              bool: '123'
+              bool: '123',
             }
           ),
           [{ actual: '123', expected: { type: 'boolean' }, where: 'path' }]
@@ -1041,7 +1041,7 @@ describe('swagger2', () => {
             undefined,
             undefined,
             {
-              bool: 123
+              bool: 123,
             }
           ),
           [{ actual: 123, expected: { type: 'boolean' }, where: 'path' }]
@@ -1059,7 +1059,7 @@ describe('swagger2', () => {
         const compiledPath = compile('test/yaml/no-base-path.yaml')('/pets/abc');
         assert.deepStrictEqual(swagger.validateResponse(compiledPath, 'get', 404), {
           actual: undefined,
-          expected: { schema: undefined }
+          expected: { schema: undefined },
         });
       });
     });
@@ -1079,7 +1079,7 @@ describe('swagger2', () => {
         const compiledPath = compile('test/yaml/tricky-slash-path.yaml')('/pets/abc//');
         assert.deepStrictEqual(swagger.validateResponse(compiledPath, 'get', 404), {
           actual: 'UNDEFINED_PATH',
-          expected: 'PATH'
+          expected: 'PATH',
         });
       });
     });
@@ -1090,7 +1090,7 @@ describe('swagger2', () => {
         assert.deepStrictEqual(
           swagger.validateRequest(compiledPath, 'get', undefined, undefined, undefined, {
             breed: 'dog',
-            fur: 'short'
+            fur: 'short',
           }),
           []
         );
@@ -1100,14 +1100,14 @@ describe('swagger2', () => {
         const compiledPath = compile('test/yaml/parameters.yaml')('/api/pets/dog/short');
         assert.deepStrictEqual(
           swagger.validateRequest(compiledPath, 'get', undefined, undefined, undefined, {
-            breed: 'dog'
+            breed: 'dog',
           }),
           [
             {
               actual: undefined,
               expected: { type: 'string' },
-              where: 'path'
-            }
+              where: 'path',
+            },
           ]
         );
       });

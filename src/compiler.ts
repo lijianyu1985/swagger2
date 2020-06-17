@@ -144,11 +144,11 @@ export function compile(document: Document): Compiled {
   const swagger = deref(document);
 
   // add a validator for every parameter in swagger document
-  Object.keys(swagger.paths).forEach(pathName => {
+  Object.keys(swagger.paths).forEach((pathName) => {
     const path = swagger.paths[pathName];
     Object.keys(path)
-      .filter(name => name !== 'parameters')
-      .forEach(operationName => {
+      .filter((name) => name !== 'parameters')
+      .forEach((operationName) => {
         const operation = path[operationName];
 
         const parameters: any = {};
@@ -163,7 +163,7 @@ export function compile(document: Document): Compiled {
         (operation.parameters || []).forEach(resolveParameter);
 
         // create array of fully resolved parameters for operation
-        operation.resolvedParameters = Object.keys(parameters).map(key => parameters[key]);
+        operation.resolvedParameters = Object.keys(parameters).map((key) => parameters[key]);
 
         // create parameter validators
         operation.resolvedParameters.forEach((parameter: CompiledParameter) => {
@@ -175,7 +175,7 @@ export function compile(document: Document): Compiled {
           }
         });
 
-        Object.keys(operation.responses).forEach(statusCode => {
+        Object.keys(operation.responses).forEach((statusCode) => {
           const response = operation.responses[statusCode];
           if (response.schema) {
             response.validator = jsonValidator(response.schema);
@@ -189,27 +189,27 @@ export function compile(document: Document): Compiled {
   });
 
   const basePath = swagger.basePath || '';
-  const matcher: CompiledPath[] = Object.keys(swagger.paths).map(name => {
+  const matcher: CompiledPath[] = Object.keys(swagger.paths).map((name) => {
     return {
       name,
       path: swagger.paths[name],
       // eslint-disable-next-line require-unicode-regexp
-      regex: new RegExp(`^${basePath.replace(/\/*$/, '')}${name.replace(/\{[^}]*}/g, '[^/]+')}/?$`),
+      regex: new RegExp(`^${basePath.replace(/\/*$/, '')}${name.replace(/{[^}]*}/g, '[^/]+')}/?$`),
       // eslint-disable-next-line no-useless-escape,require-unicode-regexp,id-length
-      expected: (name.match(/[^\/]+/g) || []).map(s => s.toString())
+      expected: (name.match(/[^\/]+/g) || []).map((s) => s.toString()),
     };
   });
 
   return (path: string) => {
     // get a list of matching paths, there should be only one
     // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
-    const matches = matcher.filter(match => Boolean(path.match(match.regex)));
+    const matches = matcher.filter((match) => Boolean(path.match(match.regex)));
     if (matches.length === 0) {
       return;
     }
     return {
       requestPath: path.substring((basePath || '').length),
-      ...matches[0]
+      ...matches[0],
     };
   };
 }

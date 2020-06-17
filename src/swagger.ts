@@ -43,7 +43,7 @@ export const validateRequest = validate.request;
 export const validateResponse = validate.response;
 export const compileDocument = compiler.compile;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars,import/order
 export import Compiled = compiler.Compiled;
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars,import/order
 export import Document = schema.Document;

@@ -23,26 +23,26 @@
   "prettier": "@checkdigit/prettier-config",
   "dependencies": {
     "is-my-json-valid": "^2.20.0",
-    "json-schema-deref-sync": "^0.10.1",
+    "json-schema-deref-sync": "^0.13.0",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "@checkdigit/eslint-config": "^3.0.1",
-    "@checkdigit/prettier-config": "^1.0.0",
-    "@checkdigit/typescript": "^3.6.2",
+    "@checkdigit/eslint-config": "^3.3.3",
+    "@checkdigit/prettier-config": "^1.0.1",
+    "@checkdigit/typescript": "^3.9.3",
     "@types/is-my-json-valid": "0.0.20",
-    "@types/mocha": "^5.2.7",
-    "@types/node": "^12.7.11",
-    "@types/yamljs": "^0.2.30",
-    "coveralls": "^3.0.6",
-    "eslint": "^6.5.1",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^14.0.13",
+    "@types/yamljs": "^0.2.31",
+    "coveralls": "^3.1.0",
+    "eslint": "^7.2.0",
     "expectations": "^1.0.0",
-    "mocha": "^6.2.1",
-    "nock": "^11.4.0",
-    "prettier": "^1.18.2",
-    "nyc": "^14.1.1",
-    "source-map-support": "^0.5.13",
-    "ts-node": "^8.4.1"
+    "mocha": "^8.0.1",
+    "nock": "^12.0.3",
+    "prettier": "^2.0.5",
+    "nyc": "^15.1.0",
+    "source-map-support": "^0.5.19",
+    "ts-node": "^8.10.2"
   },
   "maintainers": [
     {

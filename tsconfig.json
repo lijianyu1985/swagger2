@@ -1,6 +1,7 @@
 {
   "extends": "@checkdigit/typescript",
   "compilerOptions": {
+    "importsNotUsedAsValues": "remove",
     "rootDir": "src",
     "outDir": "build",
     "typeRoots": ["./node_modules/@types", "./typings"]

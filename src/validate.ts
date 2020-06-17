@@ -40,6 +40,7 @@ export interface ValidationError {
   error?: any;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-function
 const Undefined = (() => {})();
 
 function isEmpty(value: any) {
@@ -52,8 +53,8 @@ function validate(value: any, schema: CompiledDefinition): ValidationError | und
     return {
       actual: value,
       expected: {
-        schema
-      }
+        schema,
+      },
     };
   }
 
@@ -66,8 +67,8 @@ function validate(value: any, schema: CompiledDefinition): ValidationError | und
     expected: {
       schema: schema.schema,
       type: schema.type,
-      format: schema.format
-    }
+      format: schema.format,
+    },
   };
   const errorDetail = (schema.validator as any).error;
   if (errorDetail) {
@@ -124,12 +125,12 @@ export function request(
     }
 
     if (typeof query !== 'undefined' && Object.keys(query).length > 0) {
-      Object.keys(query).forEach(key => {
+      Object.keys(query).forEach((key) => {
         validationErrors.push({
           where: 'query',
           name: key,
           actual: query[key],
-          expected: {}
+          expected: {},
         });
       });
     }
@@ -196,7 +197,7 @@ export function response(
   if (typeof compiledPath === 'undefined') {
     return {
       actual: 'UNDEFINED_PATH',
-      expected: 'PATH'
+      expected: 'PATH',
     };
   }
 

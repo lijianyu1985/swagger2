@@ -37,9 +37,9 @@ const MINIMAL_SWAGGER_DOCUMENT: schema.Document = {
   swagger: '2.0',
   info: {
     title: '',
-    version: ''
+    version: '',
   },
-  paths: {}
+  paths: {},
 };
 
 // noinspection ReservedWordAsName
@@ -48,7 +48,7 @@ const PETSTORE_DOCUMENT: schema.Document = {
   info: {
     version: '1.0.0',
     title: 'Swagger Petstore',
-    license: { name: 'MIT' }
+    license: { name: 'MIT' },
   },
   host: 'petstore.swagger.io',
   basePath: '/v1',
@@ -68,20 +68,20 @@ const PETSTORE_DOCUMENT: schema.Document = {
             description: 'How many items to return at one time (max 100)',
             required: false,
             type: 'integer',
-            format: 'int32'
+            format: 'int32',
           },
           {
             name: 'numberLimit',
             in: 'query',
             required: false,
-            type: 'number'
+            type: 'number',
           },
           {
             name: 'booleanLimit',
             in: 'query',
             required: false,
-            type: 'boolean'
-          }
+            type: 'boolean',
+          },
         ],
         responses: {
           200: {
@@ -89,16 +89,16 @@ const PETSTORE_DOCUMENT: schema.Document = {
             headers: {
               'x-next': {
                 type: 'string',
-                description: 'A link to the next page of responses'
-              }
+                description: 'A link to the next page of responses',
+              },
             },
-            schema: { $ref: '#/definitions/Pets' }
+            schema: { $ref: '#/definitions/Pets' },
           },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
       },
       post: {
         summary: 'Create a pet',
@@ -108,9 +108,9 @@ const PETSTORE_DOCUMENT: schema.Document = {
           201: { description: 'Null response' },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
       },
       put: {
         summary: 'Create a pet',
@@ -119,17 +119,17 @@ const PETSTORE_DOCUMENT: schema.Document = {
           {
             name: 'pets',
             in: 'body',
-            schema: { $ref: '#/definitions/Pets' }
-          }
+            schema: { $ref: '#/definitions/Pets' },
+          },
         ],
         responses: {
           201: { description: 'Null response' },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
-      }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
+      },
     },
     '/pets/{petId}': {
       get: {
@@ -138,25 +138,25 @@ const PETSTORE_DOCUMENT: schema.Document = {
         tags: ['pets'],
         parameters: [
           {
-            $ref: '#/parameters/ifMatch'
+            $ref: '#/parameters/ifMatch',
           },
           {
-            $ref: '#/parameters/ifNoneMatch'
+            $ref: '#/parameters/ifNoneMatch',
           },
           {
-            $ref: '#/parameters/stringArray'
+            $ref: '#/parameters/stringArray',
           },
           {
-            $ref: '#/parameters/optionalNumberArray'
+            $ref: '#/parameters/optionalNumberArray',
           },
           {
-            $ref: '#/parameters/optionalBooleanArray'
+            $ref: '#/parameters/optionalBooleanArray',
           },
           {
-            $ref: '#/parameters/optionalSpacedBooleanArray'
+            $ref: '#/parameters/optionalSpacedBooleanArray',
           },
           {
-            $ref: '#/parameters/optionalTabbedBooleanArray'
+            $ref: '#/parameters/optionalTabbedBooleanArray',
           },
           {
             name: 'petId',
@@ -164,21 +164,21 @@ const PETSTORE_DOCUMENT: schema.Document = {
             required: true,
             description: 'The id of the pet to retrieve',
             type: 'integer',
-            format: 'int32'
-          }
+            format: 'int32',
+          },
         ],
         responses: {
           200: {
             description: 'Expected response to a valid request',
-            schema: { $ref: '#/definitions/Pets' }
+            schema: { $ref: '#/definitions/Pets' },
           },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
-      }
-    }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
+      },
+    },
   },
   definitions: {
     Pet: {
@@ -186,17 +186,17 @@ const PETSTORE_DOCUMENT: schema.Document = {
       properties: {
         id: { type: 'integer', format: 'int64' },
         name: { type: 'string', minLength: 1 },
-        tag: { type: 'string' }
-      }
+        tag: { type: 'string' },
+      },
     },
     Pets: { type: 'array', items: { $ref: '#/definitions/Pet' } },
     Error: {
       required: ['code', 'message'],
       properties: {
         code: { type: 'integer', format: 'int32' },
-        message: { type: 'string' }
-      }
-    }
+        message: { type: 'string' },
+      },
+    },
   },
   parameters: {
     ifNoneMatch: {
@@ -204,14 +204,14 @@ const PETSTORE_DOCUMENT: schema.Document = {
       in: 'header',
       description: 'If-None-Match header',
       required: false,
-      type: 'number'
+      type: 'number',
     },
     ifMatch: {
       name: 'If-Match',
       in: 'header',
       description: 'If-Match header',
       required: true,
-      type: 'string'
+      type: 'string',
     },
     stringArray: {
       name: 'String',
@@ -220,9 +220,9 @@ const PETSTORE_DOCUMENT: schema.Document = {
       required: true,
       type: 'array',
       items: {
-        type: 'string'
+        type: 'string',
       },
-      collectionFormat: 'multi'
+      collectionFormat: 'multi',
     },
     optionalNumberArray: {
       name: 'Number',
@@ -231,8 +231,8 @@ const PETSTORE_DOCUMENT: schema.Document = {
       required: false,
       type: 'array',
       items: {
-        type: 'number'
-      }
+        type: 'number',
+      },
     },
     optionalBooleanArray: {
       name: 'Boolean',
@@ -241,9 +241,9 @@ const PETSTORE_DOCUMENT: schema.Document = {
       required: false,
       type: 'array',
       items: {
-        type: 'boolean'
+        type: 'boolean',
       },
-      collectionFormat: 'pipes'
+      collectionFormat: 'pipes',
     },
     optionalSpacedBooleanArray: {
       name: 'SpacedBoolean',
@@ -252,9 +252,9 @@ const PETSTORE_DOCUMENT: schema.Document = {
       required: false,
       type: 'array',
       items: {
-        type: 'boolean'
+        type: 'boolean',
       },
-      collectionFormat: 'ssv'
+      collectionFormat: 'ssv',
     },
     optionalTabbedBooleanArray: {
       name: 'TabbedBoolean',
@@ -263,11 +263,11 @@ const PETSTORE_DOCUMENT: schema.Document = {
       required: false,
       type: 'array',
       items: {
-        type: 'boolean'
+        type: 'boolean',
       },
-      collectionFormat: 'tsv'
-    }
-  }
+      collectionFormat: 'tsv',
+    },
+  },
 };
 
 // noinspection SpellCheckingInspection
@@ -285,18 +285,18 @@ const API_WITH_EXAMPLES_DOCUMENT: schema.Document = {
             description: '200 300 response',
             examples: {
               'application/json':
-                '{\n    "versions": [\n        {\n            "status": "CURRENT",\n            "updated": "2011-01-21T11:33:21Z",\n            "id": "v2.0",\n            "links": [\n                {\n                    "href": "http://127.0.0.1:8774/v2/",\n                    "rel": "self"\n                }\n            ]\n        },\n        {\n            "status": "EXPERIMENTAL",\n            "updated": "2013-07-23T11:33:21Z",\n            "id": "v3.0",\n            "links": [\n                {\n                    "href": "http://127.0.0.1:8774/v3/",\n                    "rel": "self"\n                }\n            ]\n        }\n    ]\n}'
-            }
+                '{\n    "versions": [\n        {\n            "status": "CURRENT",\n            "updated": "2011-01-21T11:33:21Z",\n            "id": "v2.0",\n            "links": [\n                {\n                    "href": "http://127.0.0.1:8774/v2/",\n                    "rel": "self"\n                }\n            ]\n        },\n        {\n            "status": "EXPERIMENTAL",\n            "updated": "2013-07-23T11:33:21Z",\n            "id": "v3.0",\n            "links": [\n                {\n                    "href": "http://127.0.0.1:8774/v3/",\n                    "rel": "self"\n                }\n            ]\n        }\n    ]\n}',
+            },
           },
           300: {
             description: '200 300 response',
             examples: {
               'application/json':
-                '{\n    "versions": [\n        {\n            "status": "CURRENT",\n            "updated": "2011-01-21T11:33:21Z",\n            "id": "v2.0",\n            "links": [\n                {\n                    "href": "http://127.0.0.1:8774/v2/",\n                    "rel": "self"\n                }\n            ]\n        },\n        {\n            "status": "EXPERIMENTAL",\n            "updated": "2013-07-23T11:33:21Z",\n            "id": "v3.0",\n            "links": [\n                {\n                    "href": "http://127.0.0.1:8774/v3/",\n                    "rel": "self"\n                }\n            ]\n        }\n    ]\n}'
-            }
-          }
-        }
-      }
+                '{\n    "versions": [\n        {\n            "status": "CURRENT",\n            "updated": "2011-01-21T11:33:21Z",\n            "id": "v2.0",\n            "links": [\n                {\n                    "href": "http://127.0.0.1:8774/v2/",\n                    "rel": "self"\n                }\n            ]\n        },\n        {\n            "status": "EXPERIMENTAL",\n            "updated": "2013-07-23T11:33:21Z",\n            "id": "v3.0",\n            "links": [\n                {\n                    "href": "http://127.0.0.1:8774/v3/",\n                    "rel": "self"\n                }\n            ]\n        }\n    ]\n}',
+            },
+          },
+        },
+      },
     },
     '/v2': {
       get: {
@@ -308,21 +308,21 @@ const API_WITH_EXAMPLES_DOCUMENT: schema.Document = {
             description: '200 203 response',
             examples: {
               'application/json':
-                '{\n    "version": {\n        "status": "CURRENT",\n        "updated": "2011-01-21T11:33:21Z",\n        "media-types": [\n            {\n                "base": "application/xml",\n                "type": "application/vnd.openstack.compute+xml;version=2"\n            },\n            {\n                "base": "application/json",\n                "type": "application/vnd.openstack.compute+json;version=2"\n            }\n        ],\n        "id": "v2.0",\n        "links": [\n            {\n                "href": "http://127.0.0.1:8774/v2/",\n                "rel": "self"\n            },\n            {\n                "href": "http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf",\n                "type": "application/pdf",\n                "rel": "describedby"\n            },\n            {\n                "href": "http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl",\n                "type": "application/vnd.sun.wadl+xml",\n                "rel": "describedby"\n            },\n            {\n              "href": "http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl",\n              "type": "application/vnd.sun.wadl+xml",\n              "rel": "describedby"\n            }\n        ]\n    }\n}'
-            }
+                '{\n    "version": {\n        "status": "CURRENT",\n        "updated": "2011-01-21T11:33:21Z",\n        "media-types": [\n            {\n                "base": "application/xml",\n                "type": "application/vnd.openstack.compute+xml;version=2"\n            },\n            {\n                "base": "application/json",\n                "type": "application/vnd.openstack.compute+json;version=2"\n            }\n        ],\n        "id": "v2.0",\n        "links": [\n            {\n                "href": "http://127.0.0.1:8774/v2/",\n                "rel": "self"\n            },\n            {\n                "href": "http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf",\n                "type": "application/pdf",\n                "rel": "describedby"\n            },\n            {\n                "href": "http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl",\n                "type": "application/vnd.sun.wadl+xml",\n                "rel": "describedby"\n            },\n            {\n              "href": "http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl",\n              "type": "application/vnd.sun.wadl+xml",\n              "rel": "describedby"\n            }\n        ]\n    }\n}',
+            },
           },
           203: {
             description: '200 203 response',
             examples: {
               'application/json':
-                '{\n    "version": {\n        "status": "CURRENT",\n        "updated": "2011-01-21T11:33:21Z",\n        "media-types": [\n            {\n                "base": "application/xml",\n                "type": "application/vnd.openstack.compute+xml;version=2"\n            },\n            {\n                "base": "application/json",\n                "type": "application/vnd.openstack.compute+json;version=2"\n            }\n        ],\n        "id": "v2.0",\n        "links": [\n            {\n                "href": "http://23.253.228.211:8774/v2/",\n                "rel": "self"\n            },\n            {\n                "href": "http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf",\n                "type": "application/pdf",\n                "rel": "describedby"\n            },\n            {\n                "href": "http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl",\n                "type": "application/vnd.sun.wadl+xml",\n                "rel": "describedby"\n            }\n        ]\n    }\n}'
-            }
-          }
-        }
-      }
-    }
+                '{\n    "version": {\n        "status": "CURRENT",\n        "updated": "2011-01-21T11:33:21Z",\n        "media-types": [\n            {\n                "base": "application/xml",\n                "type": "application/vnd.openstack.compute+xml;version=2"\n            },\n            {\n                "base": "application/json",\n                "type": "application/vnd.openstack.compute+json;version=2"\n            }\n        ],\n        "id": "v2.0",\n        "links": [\n            {\n                "href": "http://23.253.228.211:8774/v2/",\n                "rel": "self"\n            },\n            {\n                "href": "http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf",\n                "type": "application/pdf",\n                "rel": "describedby"\n            },\n            {\n                "href": "http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl",\n                "type": "application/vnd.sun.wadl+xml",\n                "rel": "describedby"\n            }\n        ]\n    }\n}',
+            },
+          },
+        },
+      },
+    },
   },
-  consumes: ['application/json']
+  consumes: ['application/json'],
 };
 
 // noinspection ReservedWordAsName, SpellCheckingInspection
@@ -337,12 +337,12 @@ const PETSTORE_SEPARATE_DOCUMENT: schema.Document = {
     contact: {
       name: 'Wordnik API Team',
       email: 'foo@example.com',
-      url: 'http://madskristensen.net'
+      url: 'http://madskristensen.net',
     },
     license: {
       name: 'MIT',
-      url: 'http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT'
-    }
+      url: 'http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT',
+    },
   },
   host: 'petstore.swagger.wordnik.com',
   basePath: '/api',
@@ -359,13 +359,13 @@ const PETSTORE_SEPARATE_DOCUMENT: schema.Document = {
         responses: {
           200: {
             description: 'pet response',
-            schema: { type: 'array', items: { $ref: 'Pet.yaml' } }
+            schema: { type: 'array', items: { $ref: 'Pet.yaml' } },
           },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '../common/Error.yaml' }
-          }
-        }
+            schema: { $ref: '../common/Error.yaml' },
+          },
+        },
       },
       post: {
         description: 'Creates a new pet in the store.  Duplicates are allowed',
@@ -376,17 +376,17 @@ const PETSTORE_SEPARATE_DOCUMENT: schema.Document = {
             in: 'body',
             description: 'Pet to add to the store',
             required: true,
-            schema: { $ref: 'NewPet.yaml' }
-          }
+            schema: { $ref: 'NewPet.yaml' },
+          },
         ],
         responses: {
           200: { description: 'pet response', schema: { $ref: 'Pet.yaml' } },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '../common/Error.yaml' }
-          }
-        }
-      }
+            schema: { $ref: '../common/Error.yaml' },
+          },
+        },
+      },
     },
     '/pets/{id}': {
       get: {
@@ -399,16 +399,16 @@ const PETSTORE_SEPARATE_DOCUMENT: schema.Document = {
             description: 'ID of pet to fetch',
             required: true,
             type: 'integer',
-            format: 'int64'
-          }
+            format: 'int64',
+          },
         ],
         responses: {
           200: { description: 'pet response', schema: { $ref: 'Pet.yaml' } },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '../common/Error.yaml' }
-          }
-        }
+            schema: { $ref: '../common/Error.yaml' },
+          },
+        },
       },
       delete: {
         description: 'deletes a single pet based on the ID supplied',
@@ -420,19 +420,19 @@ const PETSTORE_SEPARATE_DOCUMENT: schema.Document = {
             description: 'ID of pet to delete',
             required: true,
             type: 'integer',
-            format: 'int64'
-          }
+            format: 'int64',
+          },
         ],
         responses: {
           204: { description: 'pet deleted' },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '../common/Error.yaml' }
-          }
-        }
-      }
-    }
-  }
+            schema: { $ref: '../common/Error.yaml' },
+          },
+        },
+      },
+    },
+  },
 };
 
 // noinspection SpellCheckingInspection,ReservedWordAsName
@@ -447,12 +447,12 @@ const PETSTORE_EXPANDED_DOCUMENT: schema.Document = {
     contact: {
       name: 'Swagger API Team',
       email: 'foo@example.com',
-      url: 'http://madskristensen.net'
+      url: 'http://madskristensen.net',
     },
     license: {
       name: 'MIT',
-      url: 'http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT'
-    }
+      url: 'http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT',
+    },
   },
   host: 'petstore.swagger.io',
   basePath: '/api',
@@ -473,7 +473,7 @@ const PETSTORE_EXPANDED_DOCUMENT: schema.Document = {
             required: false,
             type: 'array',
             collectionFormat: 'csv',
-            items: { type: 'string' }
+            items: { type: 'string' },
           },
           {
             name: 'limit',
@@ -481,19 +481,19 @@ const PETSTORE_EXPANDED_DOCUMENT: schema.Document = {
             description: 'maximum number of results to return',
             required: false,
             type: 'integer',
-            format: 'int32'
-          }
+            format: 'int32',
+          },
         ],
         responses: {
           200: {
             description: 'pet response',
-            schema: { type: 'array', items: { $ref: '#/definitions/Pet' } }
+            schema: { type: 'array', items: { $ref: '#/definitions/Pet' } },
           },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
       },
       post: {
         description: 'Creates a new pet in the store.  Duplicates are allowed',
@@ -504,20 +504,20 @@ const PETSTORE_EXPANDED_DOCUMENT: schema.Document = {
             in: 'body',
             description: 'Pet to add to the store',
             required: true,
-            schema: { $ref: '#/definitions/NewPet' }
-          }
+            schema: { $ref: '#/definitions/NewPet' },
+          },
         ],
         responses: {
           200: {
             description: 'pet response',
-            schema: { $ref: '#/definitions/Pet' }
+            schema: { $ref: '#/definitions/Pet' },
           },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
-      }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
+      },
     },
     '/pets/{id}': {
       get: {
@@ -530,19 +530,19 @@ const PETSTORE_EXPANDED_DOCUMENT: schema.Document = {
             description: 'ID of pet to fetch',
             required: true,
             type: 'integer',
-            format: 'int64'
-          }
+            format: 'int64',
+          },
         ],
         responses: {
           200: {
             description: 'pet response',
-            schema: { $ref: '#/definitions/Pet' }
+            schema: { $ref: '#/definitions/Pet' },
           },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
       },
       delete: {
         description: 'deletes a single pet based on the ID supplied',
@@ -554,18 +554,18 @@ const PETSTORE_EXPANDED_DOCUMENT: schema.Document = {
             description: 'ID of pet to delete',
             required: true,
             type: 'integer',
-            format: 'int64'
-          }
+            format: 'int64',
+          },
         ],
         responses: {
           204: { description: 'pet deleted' },
           default: {
             description: 'unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
-      }
-    }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
+      },
+    },
   },
   definitions: {
     Pet: {
@@ -573,22 +573,22 @@ const PETSTORE_EXPANDED_DOCUMENT: schema.Document = {
         { $ref: '#/definitions/NewPet' },
         {
           required: ['id'],
-          properties: { id: { type: 'integer', format: 'int64' } }
-        }
-      ]
+          properties: { id: { type: 'integer', format: 'int64' } },
+        },
+      ],
     },
     NewPet: {
       required: ['name'],
-      properties: { name: { type: 'string' }, tag: { type: 'string' } }
+      properties: { name: { type: 'string' }, tag: { type: 'string' } },
     },
     Error: {
       required: ['code', 'message'],
       properties: {
         code: { type: 'integer', format: 'int32' },
-        message: { type: 'string' }
-      }
-    }
-  }
+        message: { type: 'string' },
+      },
+    },
+  },
 };
 
 // noinspection ReservedWordAsName,SpellCheckingInspection
@@ -597,13 +597,13 @@ const UBER_DOCUMENT: schema.Document = {
   info: {
     title: 'Uber API',
     description: 'Move your app forward with the Uber API',
-    version: '1.0.0'
+    version: '1.0.0',
   },
   host: 'api.uber.com',
   schemes: ['https'],
   basePath: '/v1',
   securityDefinitions: {
-    apikey: { type: 'apiKey', name: 'server_token', in: 'query' }
+    apikey: { type: 'apiKey', name: 'server_token', in: 'query' },
   },
   produces: ['application/json'],
   paths: {
@@ -619,7 +619,7 @@ const UBER_DOCUMENT: schema.Document = {
             description: 'Latitude component of location.',
             required: true,
             type: 'number',
-            format: 'double'
+            format: 'double',
           },
           {
             name: 'longitude',
@@ -627,22 +627,22 @@ const UBER_DOCUMENT: schema.Document = {
             description: 'Longitude component of location.',
             required: true,
             type: 'number',
-            format: 'double'
-          }
+            format: 'double',
+          },
         ],
         security: [{ apikey: [] }],
         tags: ['Products'],
         responses: {
           200: {
             description: 'An array of products',
-            schema: { type: 'array', items: { $ref: '#/definitions/Product' } }
+            schema: { type: 'array', items: { $ref: '#/definitions/Product' } },
           },
           default: {
             description: 'Unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
-      }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
+      },
     },
     '/estimates/price': {
       get: {
@@ -656,7 +656,7 @@ const UBER_DOCUMENT: schema.Document = {
             description: 'Latitude component of start location.',
             required: true,
             type: 'number',
-            format: 'double'
+            format: 'double',
           },
           {
             name: 'start_longitude',
@@ -664,7 +664,7 @@ const UBER_DOCUMENT: schema.Document = {
             description: 'Longitude component of start location.',
             required: true,
             type: 'number',
-            format: 'double'
+            format: 'double',
           },
           {
             name: 'end_latitude',
@@ -672,7 +672,7 @@ const UBER_DOCUMENT: schema.Document = {
             description: 'Latitude component of end location.',
             required: true,
             type: 'number',
-            format: 'double'
+            format: 'double',
           },
           {
             name: 'end_longitude',
@@ -680,8 +680,8 @@ const UBER_DOCUMENT: schema.Document = {
             description: 'Longitude component of end location.',
             required: true,
             type: 'number',
-            format: 'double'
-          }
+            format: 'double',
+          },
         ],
         tags: ['Estimates'],
         responses: {
@@ -689,15 +689,15 @@ const UBER_DOCUMENT: schema.Document = {
             description: 'An array of price estimates by product',
             schema: {
               type: 'array',
-              items: { $ref: '#/definitions/PriceEstimate' }
-            }
+              items: { $ref: '#/definitions/PriceEstimate' },
+            },
           },
           default: {
             description: 'Unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
-      }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
+      },
     },
     '/estimates/time': {
       get: {
@@ -711,7 +711,7 @@ const UBER_DOCUMENT: schema.Document = {
             description: 'Latitude component of start location.',
             required: true,
             type: 'number',
-            format: 'double'
+            format: 'double',
           },
           {
             name: 'start_longitude',
@@ -719,34 +719,34 @@ const UBER_DOCUMENT: schema.Document = {
             description: 'Longitude component of start location.',
             required: true,
             type: 'number',
-            format: 'double'
+            format: 'double',
           },
           {
             name: 'customer_uuid',
             in: 'query',
             type: 'string',
             format: 'uuid',
-            description: 'Unique customer identifier to be used for experience customization.'
+            description: 'Unique customer identifier to be used for experience customization.',
           },
           {
             name: 'product_id',
             in: 'query',
             type: 'string',
-            description: 'Unique identifier representing a specific product for a given latitude & longitude.'
-          }
+            description: 'Unique identifier representing a specific product for a given latitude & longitude.',
+          },
         ],
         tags: ['Estimates'],
         responses: {
           200: {
             description: 'An array of products',
-            schema: { type: 'array', items: { $ref: '#/definitions/Product' } }
+            schema: { type: 'array', items: { $ref: '#/definitions/Product' } },
           },
           default: {
             description: 'Unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
-      }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
+      },
     },
     '/me': {
       get: {
@@ -757,14 +757,14 @@ const UBER_DOCUMENT: schema.Document = {
         responses: {
           200: {
             description: 'Profile information for a user',
-            schema: { $ref: '#/definitions/Profile' }
+            schema: { $ref: '#/definitions/Profile' },
           },
           default: {
             description: 'Unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
-      }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
+      },
     },
     '/history': {
       get: {
@@ -777,29 +777,29 @@ const UBER_DOCUMENT: schema.Document = {
             in: 'query',
             type: 'integer',
             format: 'int32',
-            description: 'Offset the list of returned results by this amount. Default is zero.'
+            description: 'Offset the list of returned results by this amount. Default is zero.',
           },
           {
             name: 'limit',
             in: 'query',
             type: 'integer',
             format: 'int32',
-            description: 'Number of items to retrieve. Default is 5, maximum is 100.'
-          }
+            description: 'Number of items to retrieve. Default is 5, maximum is 100.',
+          },
         ],
         tags: ['User'],
         responses: {
           200: {
             description: 'History information for the given user',
-            schema: { $ref: '#/definitions/Activities' }
+            schema: { $ref: '#/definitions/Activities' },
           },
           default: {
             description: 'Unexpected error',
-            schema: { $ref: '#/definitions/Error' }
-          }
-        }
-      }
-    }
+            schema: { $ref: '#/definitions/Error' },
+          },
+        },
+      },
+    },
   },
   definitions: {
     Product: {
@@ -807,124 +807,124 @@ const UBER_DOCUMENT: schema.Document = {
         product_id: {
           type: 'string',
           description:
-            'Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.'
+            'Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles.',
         },
         description: { type: 'string', description: 'Description of product.' },
         display_name: {
           type: 'string',
-          description: 'Display name of product.'
+          description: 'Display name of product.',
         },
         capacity: {
           type: 'integer',
-          description: 'Capacity of product. For example, 4 people.'
+          description: 'Capacity of product. For example, 4 people.',
         },
         image: {
           type: 'string',
-          description: 'Image URL representing the product.'
-        }
-      }
+          description: 'Image URL representing the product.',
+        },
+      },
     },
     ProductList: {
       properties: {
         products: {
           description: 'Contains the list of products',
           type: 'array',
-          items: { $ref: '#/definitions/Product' }
-        }
-      }
+          items: { $ref: '#/definitions/Product' },
+        },
+      },
     },
     PriceEstimate: {
       properties: {
         product_id: {
           type: 'string',
           description:
-            'Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles'
+            'Unique identifier representing a specific product for a given latitude & longitude. For example, uberX in San Francisco will have a different product_id than uberX in Los Angeles',
         },
         currency_code: {
           type: 'string',
-          description: '[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.'
+          description: '[ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) currency code.',
         },
         display_name: {
           type: 'string',
-          description: 'Display name of product.'
+          description: 'Display name of product.',
         },
         estimate: {
           type: 'string',
           description:
-            'Formatted string of estimate in local currency of the start location. Estimate could be a range, a single number (flat rate) or "Metered" for TAXI.'
+            'Formatted string of estimate in local currency of the start location. Estimate could be a range, a single number (flat rate) or "Metered" for TAXI.',
         },
         low_estimate: {
           type: 'number',
-          description: 'Lower bound of the estimated price.'
+          description: 'Lower bound of the estimated price.',
         },
         high_estimate: {
           type: 'number',
-          description: 'Upper bound of the estimated price.'
+          description: 'Upper bound of the estimated price.',
         },
         surge_multiplier: {
           type: 'number',
           description:
-            'Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier.'
-        }
-      }
+            'Expected surge multiplier. Surge is active if surge_multiplier is greater than 1. Price estimate already factors in the surge multiplier.',
+        },
+      },
     },
     Profile: {
       properties: {
         first_name: {
           type: 'string',
-          description: 'First name of the Uber user.'
+          description: 'First name of the Uber user.',
         },
         last_name: {
           type: 'string',
-          description: 'Last name of the Uber user.'
+          description: 'Last name of the Uber user.',
         },
         email: {
           type: 'string',
-          description: 'Email address of the Uber user'
+          description: 'Email address of the Uber user',
         },
         picture: { type: 'string', description: 'Image URL of the Uber user.' },
         promo_code: {
           type: 'string',
-          description: 'Promo code of the Uber user.'
-        }
-      }
+          description: 'Promo code of the Uber user.',
+        },
+      },
     },
     Activity: {
       properties: {
         uuid: {
           type: 'string',
-          description: 'Unique identifier for the activity'
-        }
-      }
+          description: 'Unique identifier for the activity',
+        },
+      },
     },
     Activities: {
       properties: {
         offset: {
           type: 'integer',
           format: 'int32',
-          description: 'Position in pagination.'
+          description: 'Position in pagination.',
         },
         limit: {
           type: 'integer',
           format: 'int32',
-          description: 'Number of items to retrieve (100 max).'
+          description: 'Number of items to retrieve (100 max).',
         },
         count: {
           type: 'integer',
           format: 'int32',
-          description: 'Total number of items available.'
+          description: 'Total number of items available.',
         },
-        history: { type: 'array', items: [{ $ref: '#/definitions/Activity' }] }
-      }
+        history: { type: 'array', items: [{ $ref: '#/definitions/Activity' }] },
+      },
     },
     Error: {
       properties: {
         code: { type: 'integer', format: 'int32' },
         message: { type: 'string' },
-        fields: { type: 'string' }
-      }
-    }
-  }
+        fields: { type: 'string' },
+      },
+    },
+  },
 };
 
 const TEST_YAML_DIR = `${__dirname}/../test/yaml/`;
@@ -950,7 +950,7 @@ describe('document', () => {
   });
 
   describe('validateDocument', () => {
-    it('fail validation on empty object', done => {
+    it('fail validation on empty object', (done) => {
       assert.deepStrictEqual(document.validateDocument({}), undefined);
       done();
     });
