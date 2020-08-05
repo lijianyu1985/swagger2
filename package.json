@@ -22,7 +22,7 @@
   "typings": "./dist/swagger.d.ts",
   "prettier": "@checkdigit/prettier-config",
   "dependencies": {
-    "is-my-json-valid": "^2.20.0",
+    "is-my-json-valid": "^2.20.3",
     "json-schema-deref-sync": "^0.13.0",
     "yamljs": "^0.3.0"
   },
