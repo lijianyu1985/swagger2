@@ -65,7 +65,7 @@ function validate(value: any, schema: CompiledDefinition): ValidationError | und
   const error: ValidationError = {
     actual: value,
     expected: {
-      schema: schema.schema,
+      schema: schema,
       type: schema.type,
       format: schema.format,
     },
