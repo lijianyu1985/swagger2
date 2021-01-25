@@ -22,7 +22,7 @@ function validate(value, schema) {
     const error = {
         actual: value,
         expected: {
-            schema: schema.schema,
+            schema: schema,
             type: schema.type,
             format: schema.format
         }
